@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>crear blog</title>
+
+    <style>
+      #one {
+        display: inline;
+        width: 100px;
+        height: 100px;
+      }
+      #two {
+        float: right;
+      }
+      #privacidad,
+      #agregar_imagenes {
+        display: inline;
+      }
+      .crearblog {
+        position: relative;
+        left: 80px;
+        margin-top: 20px;
+      }
+
+      input[type="text"],
+      select {
+        width: 60%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      .derecha {
+        position: relative;
+        float: right;
+        bottom: 480px;
+        left: 120px;
+      }
+      textarea {
+        width: 60%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box" id="one">
+      <input type="text" id="busqueda" name="busqueda" placeholder="Búsqueda" />
+      <input type="button" value="texto1" />
+      <input type="button" value="texto2" />
+      <input type="button" value="texto3" />
+    </div>
+    <div class="box" id="two">
+      Usuario1 Fecha <br />
+      <input type="button" value="Cerrar sesión" />
+    </div>
+
+    <div>
+      <h1>Crear o editar blogs</h1>
+      <hr />
+    </div>
+
+    <div class="crearblog" id="titulo">
+      <label id="titulo"> Titulo del blog </label>
+      <br />
+      <input type="text" id="titulo" name="titulo" />
+    </div>
+
+    <div class="crearblog" id="Cuerpo del blog">
+      <p>Cuerpo del blog</p>
+      <p><textarea name="cuerpo" cols="50" rows="10"></textarea></p>
+    </div>
+
+    <div class="crearblog" id="privacidad">
+      <input type="radio" name="privacidad" id="" /> Privado
+      <input type="radio" name="privacidad" id="" style="margin-left: 100px" />
+      Publico
+    </div>
+
+    <div class="crearblog" id="agregar_imagenes" style="margin-left: 30%">
+      <input type="button" value="Agregar imagenes" />
+    </div>
+
+    <div class="crearblog" id="etiquetas" style="margin-top: 40px">
+      <label id="etiquetas"> Etiquetas </label>
+      <br />
+      <input type="text" id="etiquetas" name="etiquetas" />
+    </div>
+
+    <div class="derecha" id="ultimos_post">
+      <p><textarea name="cuerpo" cols="45" rows="21"></textarea></p>
+
+      <br />
+      <input
+        type="button"
+        value="Eliminar blog"
+        style="margin-top: 10px; height: 50px; width: 240px; font-size: 14pt"
+      />
+    </div>
+  </body>
+</html>
