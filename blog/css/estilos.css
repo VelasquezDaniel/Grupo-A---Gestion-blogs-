@@ -66,7 +66,7 @@ ol {
 }
 .nav li ul {
   right: 1px;
-  top: 50px;
+  top: 38px;
 }
 .recomendados {
   display: flex;
@@ -74,7 +74,8 @@ ol {
   flex-wrap: wrap;
   justify-content: space-between;
   max-width: 850px;
-  margin: auto;
+  margin-top: 15px;
+  margin-left: 17%;
 }
 .recomendados a {
   text-decoration: none;
@@ -82,4 +83,19 @@ ol {
 }
 .recomendados a:hover {
   color: #a4281f;
+}
+.separador {
+  width: 50%;
+  margin-top: 20px;
+  margin-left: 25%;
+  border-style: dashed;
+}
+.post {
+  margin-top: 30px;
+}
+h1 {
+  text-align: center;
+}
+h1 a {
+  text-decoration: none;
 }
