@@ -16,6 +16,8 @@ header {
   position: relative;
   top: 6px;
   left: 8px;
+  max-width: 170px;
+  background-color: crimson;
 }
 .menu {
   display: flex;
