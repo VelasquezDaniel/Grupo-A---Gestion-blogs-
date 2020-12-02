@@ -1,11 +1,11 @@
 var intentos=3;
-function validar_formulario()
-{
+function validar_formulario(){
+
  var nombre=document.getElementById("login-usuario").value;
  var clave=document.getElementById("login-contraseña").value;
  if(nombre=="user" && clave=="user")
  {
-    alert("Ingreso Exitoso");
+    location.replace("Dashboard.html");
  }
  else
  {
@@ -21,7 +21,7 @@ function validar_formulario()
    {
     document.getElementById("usuario").disabled=true;
     document.getElementById("password").disabled=true;
-    document.getElementById("button").disabled=true;
+    document.getElementById("submit").disabled=true;
    }
   }
  }
