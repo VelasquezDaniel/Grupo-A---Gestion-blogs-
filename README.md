@@ -15,6 +15,7 @@ GRUPO A
 - Daniel Velasquez Vasquez
 - Daniela Sanchez Villegas
 - Daniel Aguirre Salamanca
+- Camilo Ortegon Ochoa
 - Luis Eduardo Donoso
 - Javier Santiago Borbón
 
