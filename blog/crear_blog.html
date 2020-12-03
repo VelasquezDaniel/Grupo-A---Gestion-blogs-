@@ -4,19 +4,41 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>crear blog</title>
+    <link rel="stylesheet" href="css/estilos.css" />
     <link rel="stylesheet" href="css/crear_blog_Style.css" />
   </head>
   <body>
-    <div class="box" id="one">
-      <input type="text" id="busqueda" name="busqueda" placeholder="Búsqueda" />
-      <input type="button" value="texto1" />
-      <input type="button" value="texto2" />
-      <input type="button" value="texto3" />
-    </div>
-    <div class="box" id="two">
-      Usuario1 Fecha <br />
-      <input type="button" value="Cerrar sesión" />
-    </div>
+    
+    <header>
+      <div class="busquedad">
+        <input
+          href="search.html"
+          name="buscar"
+          type="text"
+          autocomplete="off"
+          placeholder="Buscar"
+        />
+      </div>
+      <div>
+        <nav class="menu">
+          <a href="crear_blog.html">crear</a>
+          <a href="">Explorar</a>
+          <a href="">mis blogs</a>
+        </nav>
+      </div>
+      <div class="perfil">
+        <ul class="nav">
+          <li>
+            <a href="">Usuario</a>
+            <ul>
+              <li><a href="">Perfil</a></li>
+              <li><a href="changePassword.html">Configuracion</a></li>
+              <li><a href="login.html">Cerrar Sesion</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </header>
 
     <div>
       <h1>Crear o editar blogs</h1>
