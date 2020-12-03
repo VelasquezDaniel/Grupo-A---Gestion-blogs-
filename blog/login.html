@@ -6,35 +6,36 @@
     <title>Login Blog</title>
     <script src="javascript/validacion.js"></script>
 </head>
-
+<link rel="stylesheet" href="css/loginStyle.css" />
 <body>
-    <p>INGRESA A NUESTRO SITIO WEB</p>
-    <div class="login">
+    <div class="banner">
             <div class="app-title">
-                <h1>Bienvenido</h1>
+                <h1>Blog</h1>
             </div>
 
             <form  method="post" onsubmit="return validar_formulario();">
             <div class="login-form">
                 <div class="control-group">
-                    <input type="text" class="login" value="" required="required" placeholder="usuario" id="login-usuario">
+                    <input type="text" class="login" value="" required="required" placeholder="Usuario" id="login-usuario">
                     <label class="login-field-icon fui-user" for="login-usuario"></label>
                 </div>
 
                 <div class="control-group"><br>
-                    <input type="password" class="login" value="" required="required" placeholder="contraseña" id="login-contraseña">
+                    <input type="password" class="login" value="" required="required" placeholder="Contraseña" id="login-contraseña">
                     <label class="login-field-icon fui-lock" for="login-contraseña"></label>
                 </div>
 
-                <div><br>
-                    <input type="submit" href="Dashboard.html" value="Ingresa"><br><br>
+                <div class="ingresar"><br>
+                    <button class="botonIn">
+                        <span h>Inicia Sesión</span>
+                    </button>
                 </div>
 
-                <div>
+                <div class="panel">
                     <a class="login-link" href="forgetPassword.html">¿Olvidaste tu contraseña?</a><br>
                 </div>
 
-                <div>
+                <div class="panel">
                     <a class="login-link" href="createUser.html">¿Primera vez? ¡Regístrate!</a><br>
                 </div>
             </div>
