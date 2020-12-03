@@ -4,9 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Registro Nuevo Usuario</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/estilos.css" />
     <script src="javascript/verifyRegister.js"></script>
 </head>
 <body>
+    
+    <header>
+        <div class="busquedad">
+          <input
+            href="search.html"
+            name="buscar"
+            type="text"
+            autocomplete="off"
+            placeholder="Buscar"
+          />
+        </div>
+        <div>
+          <nav class="menu">
+            <a href="crear_blog.html">crear</a>
+            <a href="">Explorar</a>
+            <a href="">mis blogs</a>
+          </nav>
+        </div>
+        <div class="perfil">
+          <ul class="nav">
+            <li>
+              <a href="">Usuario</a>
+              <ul>
+                <li><a href="">Perfil</a></li>
+                <li><a href="changePassword.html">Configuracion</a></li>
+                <li><a href="login.html">Cerrar Sesion</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </header>
     <h1><strong>Ingresa tus datos</strong></h1>
     <hr>
     <form  method="post" onsubmit="return validar_usuario();">
