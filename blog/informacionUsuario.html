@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/dashboardStyle.css" />
+    <title>Información del usuario</title>
+</head>
+<style>
+    .box {
+        display: inline-block;
+    }
+    
+    #sesion {
+        margin-left: 40%;
+    }
+    
+    input[type=text] {
+        width: 55%;
+        padding: 0.5%;
+    }
+    
+    #menu {
+        width: 40%;
+        position: relative;
+        transform: translate(0, -60%);
+    }
+    
+    #tabla {
+        margin-left: 8%;
+    }
+    
+    #cambiar {
+        margin-left: 50%;
+    }
+</style>
+
+<body>
+    <header>
+        <div class="busquedad">
+            <input href="search.html" name="buscar" type="text" autocomplete="off" placeholder="Buscar" style="width: 100%;" />
+        </div>
+        <div>
+            <nav class="menu">
+                <a href="crear_blog.html">crear</a>
+                <a href="">Explorar</a>
+                <a href="">mis blogs</a>
+            </nav>
+        </div>
+        <div class="perfil">
+            <ul class="nav">
+                <li>
+                    <a href="">Usuario</a>
+                    <ul>
+                        <li><a href="">Perfil</a></li>
+                        <li><a href="changePassword.html">Configuracion</a></li>
+                        <li><a href="login.html">Cerrar Sesion</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </header>
+</body>
+
+<body>
+    <h1><strong>Información del usuario</strong></h1>
+    <div id="tabla">
+        <p><strong>Información del usuario</strong></p>
+        <TABLE BORDER=1 WIDTH=3 5% HEIGHT=5 0% rules="groups">
+            <tr>
+                <td>
+                    <p>Nombre</p>
+                    <p>Correo electrónico</p>
+                    <p>Contraseña <button id="cambiar">Cambiar contraseña</button> </p>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>
