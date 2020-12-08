@@ -14,30 +14,35 @@
             <h1>Blog</h1>
         </div>
 
-        <div class="login-form">
+        <form method="POST" action="{{url_for('validacion')}}">
             <div class="control-group">
-                <input type="text" class="login" value="" required="required" placeholder="Usuario" id="user">
+                <input type="text" id="usuario" class="login" value="" required="required" placeholder="Usuario" name="usuario">
                 <label class="login-field-icon fui-user" for="login-usuario"></label>
             </div>
 
             <div class="control-group"><br>
-                <input type="password" class="login" value="" required="required" placeholder="Contraseña" id="password">
+                <input type="password" class="login" value="" required="required" placeholder="Contraseña" id="password" name="password">
                 <label class="login-field-icon fui-lock" for="login-contraseña"></label>
             </div>
 
             <div class="ingresar"><br>
-                <button class="botonIn">
-                        <span h>Inicia Sesión</span>
-                    </button>
+                <input id="submit" value="Ingresar" type="submit">
             </div>
 
-            <div class="panel">
-                <a class="login-link" href="/recuperarCuenta">¿Olvidaste tu contraseña?</a><br>
-            </div>
+            <section class="content">
+                {%for message in get_flashed_messages()%}
+                <div class="flash">{{message}}</div>
+                {%endfor%}
+            </section>
 
-            <div class="panel">
-                <a class="login-link" href="/CrearCuenta">¿Primera vez? ¡Regístrate!</a><br>
-            </div>
-        </div>
         </form>
+
+        <div class="panel">
+            <a class="login-link" href="/recuperarCuenta">¿Olvidaste tu contraseña?</a><br>
+        </div>
+
+        <div class="panel">
+            <a class="login-link" href="/CrearCuenta">¿Primera vez? ¡Regístrate!</a><br>
+        </div>
+
 </body>

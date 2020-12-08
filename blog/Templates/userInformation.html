@@ -6,34 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Información del usuario</title>
 </head>
-<style>
-    .box {
-        display: inline-block;
-    }
-    
-    #sesion {
-        margin-left: 40%;
-    }
-    
-    input[type=text] {
-        width: 55%;
-        padding: 0.5%;
-    }
-    
-    #menu {
-        width: 40%;
-        position: relative;
-        transform: translate(0, -60%);
-    }
-    
-    #tabla {
-        margin-left: 8%;
-    }
-    
-    #cambiar {
-        margin-left: 50%;
-    }
-</style>
 
 <link rel="stylesheet" href=" {{ url_for( 'static', filename='css/dashboardStyle.css') }} " />
 
@@ -54,7 +26,7 @@
                 <li>
                     <a href=" ">Usuario</a>
                     <ul>
-                        <li><a href="informacionUsuario.html ">Perfil</a></li>
+                        <li><a href="/perfil">Perfil</a></li>
                         <li><a href="/cambiarClave">Configuracion</a></li>
                         <li><a href="/login ">Cerrar Sesion</a></li>
                     </ul>

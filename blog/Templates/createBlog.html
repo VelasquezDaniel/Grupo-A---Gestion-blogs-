@@ -5,45 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>crear blog</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/createBlogStyle.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboardStyle.css') }}" />
 </head>
-<style>
-    .contenido {
-        position: relative;
-        left: 5%;
-    }
-    
-    .aside {
-        position: fixed;
-        left: 70%;
-        top: 25%;
-    }
-    
-    .box {
-        display: inline-block;
-    }
-    
-    #sesion {
-        margin-left: 40%;
-    }
-    
-    input[type=text] {
-        width: 55%;
-        padding: 0.5%;
-    }
-    
-    #menu {
-        width: 40%;
-        position: relative;
-        transform: translate(0, -60%);
-    }
-    
-    .contenido textarea {
-        width: 55%;
-        padding: 0.5%;
-    }
-</style>
 
-<link rel="stylesheet" href="css/dashboardStyle.css" />
+
 
 <body>
     <header>
@@ -52,7 +18,7 @@
         </div>
         <div>
             <nav class="menu">
-                <a href="crear_blog.html">crear</a>
+                <a href="/create">crear</a>
                 <a href="">Explorar</a>
                 <a href="">mis blogs</a>
             </nav>
@@ -62,8 +28,8 @@
                 <li>
                     <a href="">Usuario</a>
                     <ul>
-                        <li><a href="informacionUsuario.html">Perfil</a></li>
-                        <li><a href="/recuperarCuenta">Configuracion</a></li>
+                        <li><a href="/perfil">Perfil</a></li>
+                        <li><a href="/cambiarClave">Configuracion</a></li>
                         <li><a href="/login">Cerrar Sesion</a></li>
                     </ul>
                 </li>

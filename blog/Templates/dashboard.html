@@ -8,27 +8,27 @@
 </head>
 
 </html>
-<link rel="stylesheet" href="css/dashboardStyle.css" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboardStyle.css') }}" />
 
 <body>
     <header>
-        <div class="busquedad">
-            <input href="/resultados" name="buscar" type="text" autocomplete="off" placeholder="Buscar" />
+        <div class=" busquedad ">
+            <input href="/resultados " name="buscar " type="text " autocomplete="off " placeholder="Buscar " />
         </div>
         <div>
-            <nav class="menu">
+            <nav class="menu ">
                 <a href="/create">crear</a>
-                <a href="">Explorar</a>
-                <a href="">mis blogs</a>
+                <a href=" ">Explorar</a>
+                <a href=" ">mis blogs</a>
             </nav>
         </div>
-        <div class="perfil">
-            <ul class="nav">
+        <div class="perfil ">
+            <ul class="nav ">
                 <li>
-                    <a href="">Usuario</a>
+                    <a href=" ">Usuario</a>
                     <ul>
-                        <li><a href="informacionUsuario.html">Perfil</a></li>
-                        <li><a href="/recuperarCuenta">Configuracion</a></li>
+                        <li><a href="/perfil">Perfil</a></li>
+                        <li><a href="/cambiarClave">Configuracion</a></li>
                         <li><a href="/login">Cerrar Sesion</a></li>
                     </ul>
                 </li>
@@ -37,38 +37,38 @@
     </header>
     <section>
         <div>
-            <nav class="recomendados">
-                <a href="">Aprender a programar</a>
-                <a href="">Desarrollo web</a>
-                <a href="">Dispositivos moviles</a>
-                <a href="">Desarrollo IoT</a>
-                <a href="">Sistemas operativos</a>
+            <nav class="recomendados ">
+                <a href=" ">Aprender a programar</a>
+                <a href=" ">Desarrollo web</a>
+                <a href=" ">Dispositivos moviles</a>
+                <a href=" ">Desarrollo IoT</a>
+                <a href=" ">Sistemas operativos</a>
             </nav>
         </div>
-        <div class="separador"></div>
-        <div class="publicaciones">
-            <div class="post">
+        <div class="separador "></div>
+        <div class="publicaciones ">
+            <div class="post ">
                 <h1>
-                    <a href="www.google.com.co" rel="bookmark" title="Deja de usar tantos divs!">Deja de usar tantos divs!</a
+                    <a href="www.google.com.co " rel="bookmark " title="Deja de usar tantos divs! ">Deja de usar tantos divs!</a
             >
           </h1>
         </div>
-        <div class="post">
+        <div class="post ">
           <h1>
             <a
-              href="www.google.com.co"
-              rel="bookmark"
-              title="10 grandes proyectos de programacion para mejorar"
+              href="www.google.com.co "
+              rel="bookmark "
+              title="10 grandes proyectos de programacion para mejorar "
               >10 grandes proyectos de programacion para mejorar</a
             >
           </h1>
         </div>
-        <div class="post">
+        <div class="post ">
           <h1>
             <a
-              href="www.google.com.co"
-              rel="bookmark"
-              title="Crees saber JavaScript?"
+              href="www.google.com.co "
+              rel="bookmark "
+              title="Crees saber JavaScript? "
               >Crees saber JavaScript?</a
             >
           </h1>
@@ -76,7 +76,7 @@
       </div>
     </section>
     <footer>
-      <div class="bottom-footer">
+      <div class="bottom-footer ">
         <p></p>
       </div>
     </footer>
