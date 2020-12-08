@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title style="text-align:center;">BIENVENIDO A BLOGS GRUPO - A</title>
-    <META HTTP-EQUIV="REFRESH" CONTENT="5;URL=login.html">
+    <META HTTP-EQUIV="REFRESH" CONTENT="2;URL=/login">
 </head>
 
 <body>
     <h1>¡BIENVENIDO! SOMOS GROUP A BLOGS...</h1>
-    <img style=" margin-left: auto;margin-right: auto;display: block" src="images/Bienvenida.png" alt="Bienvenido a tu blog diseñado para programadores.">
+    <img style=" margin-left: auto;margin-right: auto;display: block" src="{{ url_for('static', filename='images/Bienvenida.png') }}" alt="Bienvenido a tu blog diseñado para programadores.">
 </body>

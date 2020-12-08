@@ -5,15 +5,14 @@
     <meta charset="UTF-8">
     <title>Registro Nuevo Usuario</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/estilos.css" />
-    <link rel="stylesheet" href="css/dashboardStyle.css" />
-    <script src="javascript/verifyRegister.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboardStyle.css') }}" />
+    <script src="{{ url_for('static', filename='javascript/verifyRegister.js') }}"></script>
 </head>
 
 <body>
     <header>
         <div class="busquedad">
-            <input href="search.html" name="buscar" type="text" autocomplete="off" placeholder="Buscar" />
+            <input href="/resultados" name="buscar" type="text" autocomplete="off" placeholder="Buscar" />
         </div>
         <div>
             <nav class="menu">
