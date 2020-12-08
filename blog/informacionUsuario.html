@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/dashboardStyle.css" />
     <title>Información del usuario</title>
 </head>
 <style>
@@ -36,6 +35,8 @@
     }
 </style>
 
+<link rel="stylesheet" href="css/dashboardStyle.css" />
+
 <body>
     <header>
         <div class="busquedad">
@@ -53,7 +54,7 @@
                 <li>
                     <a href="">Usuario</a>
                     <ul>
-                        <li><a href="">Perfil</a></li>
+                        <li><a href="informacionUsuario.html">Perfil</a></li>
                         <li><a href="changePassword.html">Configuracion</a></li>
                         <li><a href="login.html">Cerrar Sesion</a></li>
                     </ul>
@@ -72,7 +73,7 @@
                 <td>
                     <p>Nombre</p>
                     <p>Correo electrónico</p>
-                    <p>Contraseña <button id="cambiar">Cambiar contraseña</button> </p>
+                    <p>Contraseña <button id="cambiar" type="summit" formatarget="_blank" href="changePassword.html">Cambiar contraseña</button> </p>
                 </td>
             </tr>
         </table>
