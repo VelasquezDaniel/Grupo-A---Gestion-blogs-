@@ -1,48 +1,80 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Registro Nuevo Usuario</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboardStyle.css') }}" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/dashboardStyle.css') }}"
+    />
     <script src="{{ url_for('static', filename='javascript/verifyRegister.js') }}"></script>
-</head>
+  </head>
 
-<body>
-    <header>
-        <div class="busquedad">
-            <input href="/resultados" name="buscar" type="text" autocomplete="off" placeholder="Buscar" />
-        </div>
-        <div>
-            <nav class="menu">
-                <a href="">Explorar</a>
-            </nav>
-        </div>
-    </header>
-</body>
+  <header>
+    <div class="busquedad">
+      <input
+        href="/resultados"
+        name="buscar"
+        type="text"
+        autocomplete="off"
+        placeholder="Buscar"
+      />
+    </div>
+    <div>
+      <nav class="menu">
+        <a href="">Explorar</a>
+      </nav>
+    </div>
+  </header>
 
-<body>
-
+  <body>
     <h1><strong>Ingresa tus datos</strong></h1>
-    <br>
+    <br />
 
-    <form method="post" onsubmit="return validar_usuario();" style="text-align:center">
-        <label for="label">Nombre Completo:</label><br>
-        <input type="name" id="name" required="required" name="name"><br><br>
-        <label for="label">Usuario:</label><br>
-        <input type="user" id="user" required="required" name="user"><br><br>
-        <label for="label">Foto de Perfil:</label><br>
-        <input style="margin-left:5%;" type="file" name="imagen" /><br><br>
-        <label for="label">Correo Electrónico:</label><br>
-        <input type="email" id="email" required="required" name="email"><br><br>
-        <label for="label">Contraseña:</label><br>
-        <input type="password" id="newPass" required="required" name="newPass"><br><br>
-        <label for="label">Confirme contraseña:</label><br>
-        <input type="password" id="confirmPass" required="required" name="confirmPass"><br><br>
-        <input type="submit" value="¡REGISTRATE!">
+    <form
+      method="post"
+      onsubmit="return validar_usuario();"
+      style="text-align: center"
+    >
+      <label for="label">Nombre Completo:</label><br />
+      <input
+        type="name"
+        id="name"
+        required="required"
+        name="name"
+      /><br /><br />
+      <label for="label">Usuario:</label><br />
+      <input
+        type="user"
+        id="user"
+        required="required"
+        name="user"
+      /><br /><br />
+      <label for="label">Foto de Perfil:</label><br />
+      <input style="margin-left: 5%" type="file" name="imagen" /><br /><br />
+      <label for="label">Correo Electrónico:</label><br />
+      <input
+        type="email"
+        id="email"
+        required="required"
+        name="email"
+      /><br /><br />
+      <label for="label">Contraseña:</label><br />
+      <input
+        type="password"
+        id="newPass"
+        required="required"
+        name="newPass"
+      /><br /><br />
+      <label for="label">Confirme contraseña:</label><br />
+      <input
+        type="password"
+        id="confirmPass"
+        required="required"
+        name="confirmPass"
+      /><br /><br />
+      <input type="submit" value="¡REGISTRATE!" />
     </form>
-</body>
-
+  </body>
 </html>
-</body>
