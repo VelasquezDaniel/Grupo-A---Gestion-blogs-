@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <title style="text-align:center;">BIENVENIDO A BLOGS GRUPO - A</title>
-    <META HTTP-EQUIV="REFRESH" CONTENT="2;URL=/login">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <title style="text-align: center">BIENVENIDO A BLOGS GRUPO - A</title>
+    <meta http-equiv="REFRESH" content="2;URL=/login" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/index.css') }}"
+    />
+  </head>
 
   <body>
-    <h1>¡BIENVENIDO! SOMOS GROUP A BLOGS...</h1>
-    <img style=" margin-left: auto;margin-right: auto;display: block" src="{{ url_for('static', filename='images/Bienvenida.png') }}" alt="Bienvenido a tu blog diseñado para programadores.">
+    <h1>¡BIENVENIDO! SOMOS GRUPO A BLOGS...</h1>
   </body>
 </html>

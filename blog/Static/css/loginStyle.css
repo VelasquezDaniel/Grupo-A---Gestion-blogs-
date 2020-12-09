@@ -82,15 +82,6 @@ body {
   margin-left: 37.6%;
 }
 
-.app-title {
-  text-align: center;
-  color: white;
-  border-bottom: 2px solid cyan;
-  max-width: 20%;
-  margin: auto;
-  margin-top: 75px;
-}
-
 .panel {
   text-align: center;
   margin: 1em;
