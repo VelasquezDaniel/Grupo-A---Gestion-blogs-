@@ -1,47 +1,50 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <title>Login Blog</title>
-        <script src="{{ url_for('static', filename='javascript/validacion.js') }}"></script>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/loginStyle.css') }}" />
-    </head>
-    <body>
-        <div class="banner">
-            <div class="app-title">
-                <h1>Blog</h1>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login Blog</title>
+    <script src="{{ url_for('static', filename='javascript/validacion.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loginStyle.css') }}" />
+</head>
+
+<body>
+    <div class="banner">
+        <div class="app-title">
+            <h1>Blog</h1>
+        </div>
+
+        <form method="POST" action="{{url_for('validacion')}}">
+            <div class="control-group">
+                <input type="text" id="username" class="login" value="" required="required" placeholder="Usuario" name="username">
+                <label class="login-field-icon fui-user" for="login-usuario"></label>
             </div>
 
-            <form method="POST" action="{{url_for('validacion')}}">
-                <div class="control-group">
-                    <input type="text" id="usuario" class="login" value="" required="required" placeholder="Usuario" name="usuario">
-                    <label class="login-field-icon fui-user" for="login-usuario"></label>
-                </div>
-
-                <div class="control-group"><br>
-                    <input type="password" class="login" value="" required="required" placeholder="Contraseña" id="password" name="password">
-                    <label class="login-field-icon fui-lock" for="login-contraseña"></label>
-                </div>
-
-                <div class="ingresar"><br>
-                    <input id="submit" value="Ingresar" type="submit">
-                </div>
-
-                <section class="content">
-                    {%for message in get_flashed_messages()%}
-                    <div class="flash">{{message}}</div>
-                    {%endfor%}
-                </section>
-
-            </form>
-
-            <div class="panel">
-                <a class="login-link" href="/recuperarCuenta">¿Olvidaste tu contraseña?</a><br>
+            <div class="control-group"><br>
+                <input type="password" class="login" value="" required="required" placeholder="Contraseña" id="password" name="password">
+                <label class="login-field-icon fui-lock" for="login-contraseña"></label>
             </div>
 
-            <div class="panel">
-                <a class="login-link" href="/CrearCuenta">¿Primera vez? ¡Regístrate!</a><br>
+            <div class="ingresar"><br>
+                <input id="submit" value="Ingresar" type="submit">
             </div>
 
-    </body>
+            <section class="content">
+                {%for message in get_flashed_messages()%}
+                <div class="flash">{{message}}</div>
+                {%endfor%}
+            </section>
+
+        </form>
+
+        <div class="panel">
+            <a class="login-link" href="/recuperarCuenta">¿Olvidaste tu contraseña?</a><br>
+        </div>
+
+        <div class="panel">
+            <a class="login-link" href="/CrearCuenta">¿Primera vez? ¡Regístrate!</a><br>
+        </div>
+
+</body>
+
 </html>

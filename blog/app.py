@@ -1,7 +1,9 @@
+#import yagmail as yagmail
 from flask import Flask, render_template, flash, request, redirect, url_for
-from werkzeug import utils
+import utils
 from db import get_db, close_db
 import os
+from sqlite3 import Error 
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -18,7 +20,7 @@ def login():
 def userInf():
     return render_template('userInformation.html')
 
-@app.route('/CrearCuenta')
+@app.route('/CrearCuenta', methods=('GET', 'POST') )
 def registro():
     #return render_template('createUser.html')
     try:
@@ -57,24 +59,24 @@ def registro():
             if db.execute( 'SELECT usuario_ID FROM usuarios WHERE correo = ?', (email,) ).fetchone() is not None:
                 error = 'El correo ya existe'.format( email )
                 flash( error )
-                return render_template( 'register.html' )
+                return render_template( 'createUser.html' )
 
             #Preguntar si el usuario existe
             if db.execute( 'SELECT usuario_ID FROM usuarios WHERE usuario = ?', (username,) ).fetchone() is not None:
-                error = 'El correo ya existe'.format( email )
+                error = 'El usuario ya existe'.format( email )
                 flash( error )
-                return render_template( 'register.html' )    
+                return render_template( 'createUser.html' )    
 
             db.execute(
                 'INSERT INTO usuarios (usuario, contraseña, correo, nombre, apellido, activo) VALUES (?,?,?,?,?,?)',
-                (name, password, email, name, lastname, active)
+                (username, password, email, name, lastname, active)
             )
             db.commit()
             close_db()
             # yag = yagmail.SMTP('micuenta@gmail.com', 'clave') #modificar con tu informacion personal
             # yag.send(to=email, subject='Activa tu cuenta',
             #        contents='Bienvenido, usa este link para activar tu cuenta ')
-            flash( 'Revisa tu correo para activar tu cuenta' )
+            #flash( 'Revisa tu correo para activar tu cuenta' )
             return render_template( 'login.html', user_created="El usuario ha sido creado con exito" )
         return render_template( 'createUser.html' )
     except:
@@ -106,16 +108,42 @@ def editBlog():
 def search():
     return render_template('search.html')
 
-@app.route('/validacion', methods=['POST'])
+@app.route('/validacion', methods=('GET', 'POST'))
 def validacion():
-    print(request.method)
-    usuario = request.form['usuario']
-    password = request.form['password']
-    if usuario == "admin" and password == "admin":
+    """if usuario == "admin" and password == "admin":
         return render_template('dashboard.html')
     else:
         flash("Usuario y/o contraseña invalido")
-        return render_template('login.html')
-    
+        return render_template('login.html')"""
+    try:
+        if request.method == 'POST':
+            db = get_db()
+            error = None
+            username = request.form['username']
+            password = request.form['password']
+
+            if not username:
+                error = 'Debes ingresar el usuario'
+                flash( error )
+                return render_template( 'login.html' )
+
+            if not password:
+                error = 'Contraseña requerida'
+                flash( error )
+                return render_template( 'login.html' )
+
+            user = db.execute(
+                'SELECT * FROM usuarios WHERE usuario = ? AND contraseña = ?', (username, password)
+            ).fetchone()
+
+            if user is None:
+                error = 'Usuario o contraseña inválidos'
+            else:
+                return redirect( 'mensajes' )
+            flash( error )
+        return render_template( 'login.html' )
+    except:
+        return render_template( 'login.html' )  
+
 if __name__ == '__main__':
     app.run()
