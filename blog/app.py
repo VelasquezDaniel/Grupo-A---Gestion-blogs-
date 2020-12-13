@@ -1,5 +1,5 @@
 from flask import Flask, render_template, flash, request, redirect, url_for
-from werkzeug import utils
+import utils
 from db import get_db, close_db
 import os
 
@@ -80,7 +80,6 @@ def registro():
     except:
         return render_template( 'createUser.html' )
 ###################
-
 
 @app.route('/recuperarCuenta')
 def forgetPassword():
