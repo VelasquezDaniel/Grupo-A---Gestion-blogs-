@@ -2,6 +2,7 @@ from flask import Flask, render_template, flash, request, redirect, url_for
 import utils
 from db import get_db, close_db
 import os
+from sqlite3 import Error
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -18,7 +19,7 @@ def login():
 def userInf():
     return render_template('userInformation.html')
 
-@app.route('/CrearCuenta')
+@app.route('/CrearCuenta' , methods=('GET', 'POST'))
 def registro():
     #return render_template('createUser.html')
     try:
