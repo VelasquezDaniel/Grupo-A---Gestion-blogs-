@@ -3,11 +3,7 @@ from flask import Flask, render_template, flash, request, redirect, url_for
 import utils
 from db import get_db, close_db
 import os
-<<<<<<< HEAD
-from sqlite3 import Error 
-=======
 from sqlite3 import Error
->>>>>>> refs/remotes/origin/main
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -24,11 +20,8 @@ def login():
 def userInf():
     return render_template('userInformation.html')
 
-<<<<<<< HEAD
-@app.route('/CrearCuenta', methods=('GET', 'POST') )
-=======
+
 @app.route('/CrearCuenta' , methods=('GET', 'POST'))
->>>>>>> refs/remotes/origin/main
 def registro():
     #return render_template('createUser.html')
     try:
