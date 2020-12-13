@@ -1,4 +1,6 @@
 from flask import Flask, render_template, flash, request, redirect, url_for
+from werkzeug import utils
+from db import get_db, close_db
 import os
 
 app = Flask(__name__)
@@ -18,7 +20,67 @@ def userInf():
 
 @app.route('/CrearCuenta')
 def registro():
-    return render_template('createUser.html')
+    #return render_template('createUser.html')
+    try:
+        if request.method == 'POST':
+            name = request.form['name']
+            lastname = request.form['lastname']
+            username = request.form['user']
+            password = request.form['password']
+            confirmPass = request.form['confirmPass']
+            email = request.form['email']
+            active = True
+            error = None
+            db = get_db() #Conectarse a la base de datos
+
+            if not utils.isUsernameValid( username ):
+                error = "El usuario debe ser alfanumerico o incluir solo '.','_','-'"
+                flash( error )
+                return render_template( 'createUser.html' )
+
+            if password != confirmPass:
+                error = "Las contraseñas no coinciden, por favor verifiquelas"
+                flash( error )
+                return render_template( 'createUser.html' )    
+
+            if not utils.isPasswordValid( password ):
+                error = 'La contraseña debe contenir al menos una minúscula, una mayúscula, un número y 8 caracteres'
+                flash( error )
+                return render_template( 'createUser.html' )
+
+            if not utils.isEmailValid( email ):
+                error = 'Correo invalido'
+                flash( error )
+                return render_template( 'createUser.html' )
+
+            #Preguntar si el correo no ha sido registrado anteriormente
+            if db.execute( 'SELECT usuario_ID FROM usuarios WHERE correo = ?', (email,) ).fetchone() is not None:
+                error = 'El correo ya existe'.format( email )
+                flash( error )
+                return render_template( 'register.html' )
+
+            #Preguntar si el usuario existe
+            if db.execute( 'SELECT usuario_ID FROM usuarios WHERE usuario = ?', (username,) ).fetchone() is not None:
+                error = 'El correo ya existe'.format( email )
+                flash( error )
+                return render_template( 'register.html' )    
+
+            db.execute(
+                'INSERT INTO usuarios (usuario, contraseña, correo, nombre, apellido, activo) VALUES (?,?,?,?,?,?)',
+                (name, password, email, name, lastname, active)
+            )
+            db.commit()
+            close_db()
+            # yag = yagmail.SMTP('micuenta@gmail.com', 'clave') #modificar con tu informacion personal
+            # yag.send(to=email, subject='Activa tu cuenta',
+            #        contents='Bienvenido, usa este link para activar tu cuenta ')
+            flash( 'Revisa tu correo para activar tu cuenta' )
+            return render_template( 'login.html', user_created="El usuario ha sido creado con exito" )
+        return render_template( 'createUser.html' )
+    except:
+        return render_template( 'createUser.html' )
+###################
+
 
 @app.route('/recuperarCuenta')
 def forgetPassword():
