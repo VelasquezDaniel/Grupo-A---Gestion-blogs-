@@ -12,6 +12,7 @@ U_UNCONFIRMED = 'UNCONFIRMED'
 U_CONFIRMED = 'CONFIRMED'
 
 
+
 def isEmailValid(email):
     is_valid = validate_email(email)
     return is_valid
