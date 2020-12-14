@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login Blog</title>
-    <script src="{{ url_for('static', filename='javascript/validacion.js') }}"></script>
+    <!--<script src="{{ url_for('static', filename='javascript/validacion.js') }}"></script>-->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/loginStyle.css') }}" />
 </head>
 
@@ -31,7 +31,7 @@
 
             <section class="content">
                 {%for message in get_flashed_messages()%}
-                <div class="flash">{{message}}</div>
+                <div class="flash"><strong>{{message}}</strong></div>
                 {%endfor%}
             </section>
 

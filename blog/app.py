@@ -5,6 +5,8 @@ from db import get_db, close_db
 import os
 from sqlite3 import Error
 
+
+
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
@@ -24,7 +26,7 @@ def userInf():
 @app.route('/CrearCuenta' , methods=('GET', 'POST'))
 def registro():
     #return render_template('createUser.html')
-    try:
+    #try:
         if request.method == 'POST':
             name = request.form['name']
             lastname = request.form['lastname']
@@ -64,7 +66,7 @@ def registro():
 
             #Preguntar si el usuario existe
             if db.execute( 'SELECT usuario_ID FROM usuarios WHERE usuario = ?', (username,) ).fetchone() is not None:
-                error = 'El usuario ya existe'.format( email )
+                error = 'El usuario ya existe'.format( username )
                 flash( error )
                 return render_template( 'createUser.html' )    
 
@@ -80,9 +82,8 @@ def registro():
             #flash( 'Revisa tu correo para activar tu cuenta' )
             return render_template( 'login.html', user_created="El usuario ha sido creado con exito" )
         return render_template( 'createUser.html' )
-    except:
-        return render_template( 'createUser.html' )
-###################
+    #except:
+    #    return render_template( 'createUser.html' )
 
 @app.route('/recuperarCuenta')
 def forgetPassword():
@@ -115,12 +116,13 @@ def validacion():
     else:
         flash("Usuario y/o contraseña invalido")
         return render_template('login.html')"""
-    try:
-        if request.method == 'POST':
+    #try:
+    if request.method == 'POST':
             db = get_db()
             error = None
             username = request.form['username']
             password = request.form['password']
+            print("Tomo los datos")
 
             if not username:
                 error = 'Debes ingresar el usuario'
@@ -132,18 +134,17 @@ def validacion():
                 flash( error )
                 return render_template( 'login.html' )
 
-            user = db.execute(
-                'SELECT * FROM usuarios WHERE usuario = ? AND contraseña = ?', (username, password)
-            ).fetchone()
+            user = db.execute('SELECT * FROM usuarios WHERE usuario = ? AND contraseña = ?',(username, password)).fetchone()
+            print("Supuestamente lo llevo a la base de datos")
 
             if user is None:
                 error = 'Usuario o contraseña inválidos'
             else:
-                return redirect( 'mensajes' )
+                return redirect( 'dashboard' )
             flash( error )
-        return render_template( 'login.html' )
-    except:
-        return render_template( 'login.html' )  
+    return render_template( 'login.html' )    
+    #except:
+    #    return render_template( 'login.html' )  
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True,port=5000)
