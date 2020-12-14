@@ -1,5 +1,13 @@
 #import yagmail as yagmail
-from flask import Flask, render_template, flash, request, redirect, url_for
+
+import pdfkit #para pdf
+#path_wkhtmltopdf = 'venv\\include\\wkhtmltopdf\\bin\\wkhtmltopdf.exe'
+#config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
+resultado = {}
+import functools
+import datetime
+
+from flask import Flask, render_template, flash, request, redirect, url_for, jsonify, session, send_file, current_app, g, make_response
 import utils
 from db import get_db, close_db
 import os
@@ -14,11 +22,55 @@ app.secret_key = os.urandom(24)
 def index():
     return render_template('index.html')
 
-@app.route('/login')
+@app.route('/login', methods=('POST','GET'))
 def login():
     return render_template('login.html')
 
+@app.route('/validacion', methods=('GET', 'POST'))
+def validacion():
+    try:
+        if g.user:
+            return redirect( url_for( 'dashboard' ) )
+        if request.method == 'POST':
+            db = get_db()
+            error = None
+            username = request.form['username']
+            password = request.form['password']
+
+            if not username:
+                error = 'Debes ingresar el usuario'
+                flash( error )
+                return render_template( 'login.html' )
+
+            if not password:
+                error = 'Contraseña requerida'
+                flash( error )
+                return render_template( 'login.html' )
+
+            user = db.execute('SELECT * FROM usuarios WHERE usuario = ? AND contraseña = ?',(username, password)).fetchone()
+
+            if user is None:
+                error = 'Usuario o contraseña inválidos'
+            else:
+                session.clear()
+                session['usuario_ID'] = user[0]
+                return redirect(url_for('dashboard'))
+            flash( error )
+        return render_template( 'login.html' )    
+    except:
+        return render_template( 'login.html' )  
+
+
+def login_required(view):
+    @functools.wraps( view )
+    def wrapped_view():
+        if g.user is None:
+            return redirect( url_for( 'login' ) )
+        return view( )
+    return wrapped_view 
+    
 @app.route('/perfil')
+@login_required
 def userInf():
     return render_template('userInformation.html')
 
@@ -26,7 +78,7 @@ def userInf():
 @app.route('/CrearCuenta' , methods=('GET', 'POST'))
 def registro():
     #return render_template('createUser.html')
-    #try:
+    try:
         if request.method == 'POST':
             name = request.form['name']
             lastname = request.form['lastname']
@@ -82,26 +134,73 @@ def registro():
             #flash( 'Revisa tu correo para activar tu cuenta' )
             return render_template( 'login.html', user_created="El usuario ha sido creado con exito" )
         return render_template( 'createUser.html' )
-    #except:
-    #    return render_template( 'createUser.html' )
+    except:
+        return render_template( 'createUser.html' )
 
 @app.route('/recuperarCuenta')
 def forgetPassword():
     return render_template('forgetPassword.html')
     
 @app.route('/cambiarClave')
+@login_required
 def changePassword():
     return render_template('changePassword.html')
 
 @app.route('/dashboard')
+@login_required
 def dashboard():
     return render_template('dashboard.html')
 
 @app.route('/create')
+@login_required
 def createBlog():
-    return render_template('createBlog.html')
+    try:
+        if request.method == 'POST':
+            titulo = request.form['titulo']
+            cuerpo = request.form['cuerpo']
+            imagen = "No hay" #DEBEMOS MODIFICAR ESTO
+            etiquetas = "Modificar etiquetas"
+            usuarioCreador = 1 #session['usuario_ID']
+            likes = 0
+            fechaCreacion = datetime.now()
+            if request.form['privacidad'] == True:
+                privado = True
+            else:
+                privado = False 
+            error = None
+            db = get_db() #Conectarse a la base de datos
+            if cuerpo is None:
+                error = "debe ingresar el titulo del blog"
+                flash( error )
+                return render_template( 'create.html' )
+
+            if cuerpo is None:
+                error = "debe ingresar el cuerpo del blog"
+                flash( error )
+                return render_template( 'create.html' )
+
+            if privado is None:
+                error = "debe seleccionar la privacidad del blog"
+                flash( error )
+                return render_template( 'create.html' )
+
+            db.execute(
+                'INSERT INTO blogs (titulo, imagen, cuerpo, privado, etiquetas, usuarioCreador, likes, fechaCreacion) VALUES (?,?,?,?,?,?,?,?)',
+                (titulo, imagen, cuerpo, privado, etiquetas, usuarioCreador, likes, fechaCreacion)
+            )
+            db.commit()
+            close_db()
+            # yag = yagmail.SMTP('micuenta@gmail.com', 'clave') #modificar con tu informacion personal
+            # yag.send(to=email, subject='Activa tu cuenta',
+            #        contents='Bienvenido, usa este link para activar tu cuenta ')
+            #flash( 'Revisa tu correo para activar tu cuenta' )
+            return render_template( 'dashboard.html', blog_created="El blog ha sido creado con exito" )
+        return render_template( 'createBlog.html' )
+    except:
+        return render_template( 'createBlog.html' )       
 
 @app.route('/edit', methods=['POST'])
+@login_required
 def editBlog():
     return render_template('editBlog.html')
 
@@ -109,42 +208,23 @@ def editBlog():
 def search():
     return render_template('search.html')
 
-@app.route('/validacion', methods=('GET', 'POST'))
-def validacion():
-    """if usuario == "admin" and password == "admin":
-        return render_template('dashboard.html')
+@app.before_request
+def load_logged_in_user():
+    user_id = session.get( 'usuario_ID' )
+
+    if user_id is None:
+        g.user = None
     else:
-        flash("Usuario y/o contraseña invalido")
-        return render_template('login.html')"""
-    #try:
-    if request.method == 'POST':
-            db = get_db()
-            error = None
-            username = request.form['username']
-            password = request.form['password']
-            print("Tomo los datos")
+        g.user = get_db().execute(
+            'SELECT * FROM usuarios WHERE usuario_ID = ?', (user_id,)
+        ).fetchone()
 
-            if not username:
-                error = 'Debes ingresar el usuario'
-                flash( error )
-                return render_template( 'login.html' )
 
-            if not password:
-                error = 'Contraseña requerida'
-                flash( error )
-                return render_template( 'login.html' )
+@app.route( '/logout' )
+def logout():
+    session.clear()
+    return redirect( url_for( 'login' ) )
 
-            user = db.execute('SELECT * FROM usuarios WHERE usuario = ? AND contraseña = ?',(username, password)).fetchone()
-            print("Supuestamente lo llevo a la base de datos")
-
-            if user is None:
-                error = 'Usuario o contraseña inválidos'
-            else:
-                return redirect( 'dashboard' )
-            flash( error )
-    return render_template( 'login.html' )    
-    #except:
-    #    return render_template( 'login.html' )  
 
 if __name__ == '__main__':
     app.run(debug=True,port=5000)
