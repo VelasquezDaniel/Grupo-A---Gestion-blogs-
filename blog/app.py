@@ -58,6 +58,7 @@ def validacion():
                 session['apellido'] = user[5]
                 return redirect(url_for('dashboard'))
             flash( error )
+            
         return render_template( 'login.html' )    
     except:
         return render_template( 'login.html' )  
@@ -182,6 +183,12 @@ def dashboard():
 def createBlog():
     return render_template( 'createBlog.html' )
 
+@app.route('/edit', methods=['POST'])	
+@login_required	
+def editBlog():	
+    return render_template('editBlog.html')	
+
+@app.route('/resultados', methods=['GET'])
 @app.route('/createBlog')
 @login_required
 def crearBlog():
@@ -237,4 +244,16 @@ def search():
 @app.before_request
 def load_logged_in_user():
     user_id = session.get( 'usuario_ID' )
+    if user_id is None:	
+            g.user = None	
+    else:	
+        g.user = get_db().execute('SELECT * FROM usuarios WHERE usuario_ID = ?', (user_id,)).fetchone()	
+
+@app.route( '/logout' )	
+def logout():	
+    session.clear()	
+    return redirect( url_for( 'login' ) )	
+
+if __name__ == '__main__':	
+    app.run(debug=True,port=5000)
 
