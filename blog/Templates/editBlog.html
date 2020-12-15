@@ -37,6 +37,58 @@
 
 <body>
 
+    <form method="POST" action="{{url_for('createBlog')}}">
+        <h1 style="position: relative;left: 5%;transform: translate(0, 60%);">Crear blogs</h1>
+        <div class="contenido">
+            <div class="crearblog" id="titulo">
+                <label id="titulo"> Titulo del blog: </label>
+                <br>
+                <input type="text" id="titulo" name="titulo" required="required" style="margin-top: 0.5%;">
+            </div>
+
+            <div class="crearblog" id="Cuerpo del blog" style="margin-top: 2.5%;">Cuerpo del blog:<br>
+                <input type="text" id="cuerpo" required="required" name="cuerpo" style="border-bottom-width: 1.992; padding-bottom: 80px;">
+            </div>
+            <br>
+            <div class="crearblog">
+                <input type="radio" name="privacidad" value="privado" id="privado">
+                <label for="privado">Privado</label>
+                <input type="radio" name="privacidad" id="noprivado" value="noprivado" style="margin-left: 2%;">
+                <label for="noprivado">Publico</label>
+                <input type="button" value="Agregar imagenes" style="margin-left: 31.5%;">
+            </div>
+
+            <div class="crearblog" id="etiqueta" style="margin-top: 5%;">
+                <label id="etiqueta"> Etiqueta: </label>
+                <br>
+                <input type="text" id="etiqueta" name="etiqueta" style="margin-top: 0.5%;">
+            </div>
+
+            <div class="editar/eliminarblog" style="margin-top: 10%;">
+                <input type="button " value="Actualizar blog " style=" width: 35%;font-size:14pt; ">
+                <input type="button " value="Eliminar blog " style=" width: 35%;font-size:14pt; ">
+            </div>
+
+            <section class="content ">
+                {%for message in get_flashed_messages()%}
+                <div class="flash "><strong>{{message}}</strong></div>
+                {%endfor%}
+            </section>
+
+    </form>
+
+    <aside class="aside ">
+        <div id="ultimospost ">
+            <p><textarea name="ultimos post " cols="40 " rows="21 " style="width: 70%; "></textarea></p>
+        </div>
+        <br>
+
+
+    </aside>
+</body>
+
+<!--<body>
+
     <section>
         <h1 style="position: relative;left: 5%;transform: translate(0, 60%); ">editar blogs</h1>
 
@@ -82,6 +134,6 @@
         </div>
 
     </aside>
-</body>
+</body>-->
 
 </html>

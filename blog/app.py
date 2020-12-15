@@ -214,7 +214,12 @@ def newPassword():
     except:
         #flash( 'Se ha producido un error, intente de nuevo en unos minutos' )
         return render_template( 'changePassword.html' )
-   #########################
+
+#Editar Blog - Necesito seleccionar la informacion del blog y enviarla a /edit una vez allí la puedo modificar 
+#Duda 1: como tomo la informacion de un blog? 
+#   yo quier: que al darle click ((((DUDA: que me envie a /edit con la informacion del blog))))
+#   Verificar si el blog fue creado por mi - me lleve de una a la ventana de editar 
+#   si el blog no es mio entonces llevarme a un visualizador de blogs y poder comentarlo. 
 
 
 
