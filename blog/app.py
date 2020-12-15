@@ -62,6 +62,7 @@ def validacion():
                     session['nombre'] = user[4]
                     session['apellido'] = user[5]
                     return redirect(url_for('dashboard'))
+            error = 'Usuario o contraseña inválidos'
             flash( error )
             
         return render_template( 'login.html' )    
@@ -85,7 +86,6 @@ def userInf():
 
 @app.route('/CrearCuenta' , methods=('GET', 'POST'))
 def registro():
-    #return render_template('createUser.html')
     try:
         if request.method == 'POST':
             name = request.form['name']
@@ -181,7 +181,42 @@ def sendEmail():
 def changePassword():
     return render_template('changePassword.html')
 
-    
+@app.route('/nuevaClave')
+@login_required
+def newPassword():
+    #try:
+        if request.method == 'POST':
+            oldPass = request.form['oldPass']
+            newPass = request.form['newPass']
+            confirmPass = request.form['confirmPass']
+            db = get_db()
+            if db.execute( 'SELECT contraseña FROM usuarios WHERE usuario = ? AND contraseña = ?',(user[1], oldPass)).fetchone() is not None :
+                if newPass == confirmPass:
+                    if not utils.isPasswordValid( newPass ):
+                        error = 'La contraseña debe contener al menos una minúscula, una mayúscula, un número y 8 caracteres'
+                        flash( error )
+                        return render_template( 'cambiarClave.html' )
+                    hashPassword = generate_password_hash(confirmPass)
+                    db.execute( 'UPDATE usuarios SET contraseña = ? WHERE correo = ?',(hashPassword, session[2]))
+                    db.commit()
+                    db.close_db
+                    flash("Contraseña cambiada con exito")
+                    session.clear()
+                    return redirect('login.html')
+                else:
+                    flash('Las contraseñas no concuerdan')
+                    return render_template('changePassword.html')
+            flash('Las contraseña actual no concuerdan')
+            return render_template('changePassword.html')
+    #except:
+    #    flash( 'Se ha producido un error, intente de nuevo en unos minutos' )
+    #    return render_template( 'changePassword.html' )
+   #########################
+
+
+
+
+  
 @app.route('/dashboard')
 @login_required
 def dashboard():
