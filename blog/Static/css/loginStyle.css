@@ -9,6 +9,11 @@ body {
   background-color: #0d1d2b;
 }
 
+header {
+  width: 100%;
+  height: 152px;
+}
+
 .login-form {
   display: flexbox;
   max-width: 25%;

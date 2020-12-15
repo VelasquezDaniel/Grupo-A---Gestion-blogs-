@@ -1,130 +1,130 @@
 * {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 body {
-    font-family: "Open Sans", sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 header {
-    width: 100%;
-    height: 152px;
-    background-color: #0d1d2b;
+  width: 100%;
+  height: 152px;
+  background-color: #0d1d2b;
 }
 
 .busquedad {
-    display: flex;
-    position: relative;
-    top: 6px;
-    left: 8px;
-    max-width: 166px;
+  display: flex;
+  position: relative;
+  top: 6px;
+  left: 8px;
+  max-width: 166px;
 }
 
 .menu {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    text-transform: capitalize;
-    justify-content: space-between;
-    max-width: 200px;
-    position: relative;
-    top: -15px;
-    left: 200px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-transform: capitalize;
+  justify-content: space-between;
+  max-width: 200px;
+  position: relative;
+  top: -15px;
+  left: 200px;
 }
 
 .menu a {
-    text-decoration: none;
-    color: white;
+  text-decoration: none;
+  color: white;
 }
 
 .menu a:hover {
-    color: #a4281f;
+  color: #a4281f;
 }
 
 .perfil {
-    position: absolute;
-    top: 0px;
-    right: 30px;
+  position: absolute;
+  top: 0px;
+  right: 30px;
 }
 
 #recuadro {
-    border: black 1px solid;
-    position: relative;
-    left: 5%;
-    right: 25%;
+  border: black 1px solid;
+  position: relative;
+  left: 5%;
+  right: 25%;
 }
 
 ul,
 ol {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 .nav li a {
-    background-color: #0d1d2b;
-    color: white;
-    text-decoration: none;
-    padding: 10px 15px;
-    display: block;
+  background-color: #0d1d2b;
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  display: block;
 }
 
 .nav li a:hover {
-    background-color: #434343;
+  background-color: #434343;
 }
 
 .nav li ul {
-    display: none;
-    position: absolute;
+  display: none;
+  position: absolute;
 }
 
-.nav li:hover>ul {
-    display: block;
+.nav li:hover > ul {
+  display: block;
 }
 
 .nav li ul li {
-    position: relative;
+  position: relative;
 }
 
 .nav li ul {
-    right: 1px;
-    top: 38px;
+  right: 1px;
+  top: 38px;
 }
 
 .recomendados {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    max-width: 850px;
-    margin-top: 15px;
-    margin-left: 17%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 850px;
+  margin-top: 15px;
+  margin-left: 17%;
 }
 
 .recomendados a {
-    text-decoration: none;
-    color: #277ab1;
+  text-decoration: none;
+  color: #277ab1;
 }
 
 .recomendados a:hover {
-    color: #a4281f;
+  color: #a4281f;
 }
 
 .separador {
-    width: 50%;
-    margin-top: 20px;
-    margin-left: 25%;
-    border-style: dashed;
+  width: 50%;
+  margin-top: 20px;
+  margin-left: 25%;
+  border-style: dashed;
 }
 
 .post {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
 h1 {
-    text-align: center;
+  text-align: center;
 }
 
 h1 a {
-    text-decoration: none;
+  text-decoration: none;
 }

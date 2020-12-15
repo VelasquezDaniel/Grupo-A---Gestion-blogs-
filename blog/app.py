@@ -1,4 +1,4 @@
-import pdfkit #para pdf
+#para pdf
 #path_wkhtmltopdf = 'venv\\include\\wkhtmltopdf\\bin\\wkhtmltopdf.exe'
 #config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
 resultado = {}
