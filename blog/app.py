@@ -153,24 +153,28 @@ def forgetPassword():
 
 
 
-@app.route('/sendEmail', methods=('POST'))
+@app.route('/sendEmail', methods=('GET', 'POST'))
 def sendEmail():
-    username = request.form['user']
-    email = request.form['email']
-    db = get_db() #Conectarse a la base de datos
-
-    alphabet = string.ascii_letters + string.digits
-    password = ''.join(secrets.choice(alphabet) for i in range(8))
-    #Preguntar si el correo no ha sido registrado anteriormente
-    if db.execute( 'SELECT usuario_ID FROM usuarios WHERE usuario = ? AND correo = ?',(username, email)).fetchone() is not None:
-        yag = yagmail.SMTP('misiontic2020@gmail.com', 'Uninorte2020!') #modificar con tu informacion personal
-        yag.send(to=email, subject='Recupera tu cuenta',
-        contents='¡Hola!, usa esta clave temporal para entrar a tu cuenta. \n\nClave temporal: '+password+'\n\nGracias por utilizar nuestros servicios!\nAtentamente,\nEquipo Grupo A Blogs')
-        db.execute('UPDATE usuarios SET contraseña = ? WHERE correo = ?' ,(password, email))
-        db.commit()
-    close_db()
-    return render_template('login.html')
-
+    try:
+        if request.method == 'POST':
+            username = request.form['user']
+            email = request.form['email']
+            db = get_db() #Conectarse a la base de datos
+            alphabet = string.ascii_letters + string.digits
+            password = ''.join(secrets.choice(alphabet) for i in range(8))
+            #Preguntar si el correo no ha sido registrado anteriormente
+            if db.execute( 'SELECT usuario_ID FROM usuarios WHERE usuario = ? AND correo = ?',(username, email)).fetchone() is not None:
+                yag = yagmail.SMTP('misiontic2020@gmail.com', 'Uninorte2020!') #modificar con tu informacion personal
+                yag.send(to=email, subject='Recupera tu cuenta',
+                contents='¡Hola!, usa esta clave temporal para entrar a tu cuenta. \n\nClave temporal: '+password+'\n\nGracias por utilizar nuestros servicios!\nAtentamente,\nEquipo Grupo A Blogs')
+                hashPassword = generate_password_hash(password)
+                db.execute('UPDATE usuarios SET contraseña = ? WHERE correo = ?' ,(hashPassword, email))
+                db.commit()
+            close_db()
+            return render_template('login.html')
+    except:
+        flash( 'Se ha producido un error, intente de nuevo en unos minutos' )
+        return render_template( 'forgetPassword.html' )
 
 @app.route('/cambiarClave')
 @login_required
@@ -237,10 +241,6 @@ def crearBlog():
             )
             db.commit()
             close_db()
-            # yag = yagmail.SMTP('micuenta@gmail.com', 'clave') #modificar con tu informacion personal
-            # yag.send(to=email, subject='Activa tu cuenta',
-            #        contents='Bienvenido, usa este link para activar tu cuenta ')
-            #flash( 'Revisa tu correo para activar tu cuenta' )
             return render_template( 'dashboard.html', blog_created="El blog ha sido creado con exito" )
         return render_template( 'createBlog.html' )
     except:
