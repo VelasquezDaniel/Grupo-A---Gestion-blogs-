@@ -54,6 +54,7 @@ def validacion():
             else:
                 session.clear()
                 session['usuario_ID'] = user[0]
+                session['username'] = user[1]
                 return redirect(url_for('dashboard'))
             flash( error )
         return render_template( 'login.html' )    
@@ -154,13 +155,13 @@ def dashboard():
 @app.route('/create')
 @login_required
 def createBlog():
-    try:
+    #try:
         if request.method == 'POST':
             titulo = request.form['titulo']
             cuerpo = request.form['cuerpo']
             imagen = "No hay" #DEBEMOS MODIFICAR ESTO
             etiquetas = "Modificar etiquetas"
-            usuarioCreador = 1 #session['usuario_ID']
+            usuarioCreador = 1  #session['usuario_ID']
             likes = 0
             fechaCreacion = datetime.now()
             if request.form['privacidad'] == True:
@@ -196,8 +197,8 @@ def createBlog():
             #flash( 'Revisa tu correo para activar tu cuenta' )
             return render_template( 'dashboard.html', blog_created="El blog ha sido creado con exito" )
         return render_template( 'createBlog.html' )
-    except:
-        return render_template( 'createBlog.html' )       
+    #except:
+        #return render_template( 'createBlog.html' )       
 
 @app.route('/edit', methods=['POST'])
 @login_required

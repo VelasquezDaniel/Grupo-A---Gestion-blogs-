@@ -1,61 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboardStyle.css') }}"/>
-  </head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboardStyle.css') }}" />
+</head>
 
-  <header>
-      <div class="busquedad">
-        <input
-          href="/resultados "
-          name="buscar "
-          type="text "
-          autocomplete="off "
-          placeholder="Buscar "
-        />
-      </div>
-      <div>
+<header>
+    <div class="busquedad">
+        <input href="/resultados " name="buscar " type="text " autocomplete="off " placeholder="Buscar " />
+    </div>
+    <div>
         <nav class="menu">
-          <a href="/create">crear</a>
-          <a href=" ">Explorar</a>
-          <a href=" ">mis blogs</a>
+            <a href="/create">crear</a>
+            <a href=" ">Explorar</a>
+            <a href=" ">mis blogs</a>
         </nav>
-      </div>
-      <div class="perfil">
+    </div>
+    <div class="perfil">
         <ul class="nav">
-          <li>
-            <a href=" ">Usuario</a>
-            <ul>
-              <li><a href="/perfil">Perfil</a></li>
-              <li><a href="/cambiarClave">Configuracion</a></li>
-              <li><a href="/login">Cerrar Sesion</a></li>
-            </ul>
-          </li>
+            <li>
+                <a href=" ">Usuario: {{session['username']}}</a>
+                <ul>
+                    <li><a href="/perfil">Perfil</a></li>
+                    <li><a href="/cambiarClave">Configuracion</a></li>
+                    <li><a href="/login">Cerrar Sesion</a></li>
+                </ul>
+            </li>
         </ul>
-      </div>
-  </header>
-    <section>
-      <div>
+    </div>
+</header>
+<section>
+    <div>
         <nav class="recomendados">
-          <a href=" ">Aprender a programar</a>
-          <a href=" ">Desarrollo web</a>
-          <a href=" ">Dispositivos moviles</a>
-          <a href=" ">Desarrollo IoT</a>
-          <a href=" ">Sistemas operativos</a>
+            <a href=" ">Aprender a programar</a>
+            <a href=" ">Desarrollo web</a>
+            <a href=" ">Dispositivos moviles</a>
+            <a href=" ">Desarrollo IoT</a>
+            <a href=" ">Sistemas operativos</a>
         </nav>
-      </div>
-      <div class="separador"></div>
-      <div class="publicaciones">
+    </div>
+    <div class="separador"></div>
+    <div class="publicaciones">
         <div class="post">
-          <h1>
-            <a
-              href="www.google.com.co "
-              rel="bookmark "
-              title="Deja de usar tantos divs! "
-              >Deja de usar tantos divs!</a
+            <h1>
+                <a href="www.google.com.co " rel="bookmark " title="Deja de usar tantos divs! ">Deja de usar tantos divs!</a
             >
           </h1>
         </div>
