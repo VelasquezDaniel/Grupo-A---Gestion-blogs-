@@ -17,6 +17,17 @@ input[type=text] {
     transform: translate(0, -60%);
 }
 
+#recuadro {
+    border: black 1px solid;
+    position: relative;
+    left: 5%;
+    right: 25%;
+}
+
+#cambiar {
+    margin-left: 50%;
+}
+
 #tabla {
     margin-left: 8%;
 }

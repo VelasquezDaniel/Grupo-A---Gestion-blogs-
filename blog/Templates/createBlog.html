@@ -23,11 +23,11 @@
     <div class="perfil">
         <ul class="nav">
             <li>
-                <a href="">Usuario</a>
+                <a href="">Usuario: {{session['username']}}</a>
                 <ul>
                     <li><a href="/perfil">Perfil</a></li>
                     <li><a href="/cambiarClave">Configuracion</a></li>
-                    <li><a href="/login">Cerrar Sesion</a></li>
+                    <li><a href="/logout">Cerrar Sesion</a></li>
                 </ul>
             </li>
         </ul>
@@ -54,8 +54,10 @@
             </div>
             <br>
             <div class="crearblog">
-                <input type="radio" name="privado" id="privado"> Privado
-                <input type="radio" name="noprivado" id="noprivado" style="margin-left: 2%;"> Publico
+                <input type="radio" name="privacidad" value="privado" id="privado">
+                <label for="privado">Privado</label>
+                <input type="radio" name="privacidad" id="noprivado" value="noprivado" style="margin-left: 2%;">
+                <label for="noprivado">Publico</label>
                 <input type="button" value="Agregar imagenes" style="margin-left: 31.5%;">
             </div>
 
@@ -66,7 +68,7 @@
             </div>
 
             <div class="crear/eliminarblog" style="margin-top: 10%;">
-                <input id="crearBlog" type="submit" action="{{url_for('createBlog')}}" name="crearBlog" value="Crear blog " style=" width: 35%;font-size:14pt; ">
+                <botton id="crearBlog" type="submit" onclick="location.href='/createBlog'" name="crearBlog" style=" width: 35%;font-size:14pt; ">Crear blog</botton>
             </div>
 
             <section class="content ">
