@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <title>Registro Nuevo Usuario</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<<<<<<< HEAD
     <link
       rel="shortcut icon"
       type="image/png"
@@ -14,10 +13,8 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/dashboardStyle.css') }}"
     />
-=======
     <link rel="shortcut icon" type="image/png" href="https://img.icons8.com/clouds/100/000000/flicker-free.png" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboardStyle.css') }}" />
->>>>>>> 6fcd0a0307e17d564de840559e5a98577edd17fc
     <!-- <script src="{{ url_for('static', filename='javascript/verifyRegister.js') }}"></script> -->
   </head>
 
@@ -27,7 +24,6 @@
     <h1><strong>Ingresa tus datos</strong></h1>
     <br />
 
-<<<<<<< HEAD
     <form
       method="POST"
       action="{{ url_for('registro')}}"
@@ -84,7 +80,6 @@
         <div class="flash"><strong>{{message}}</strong></div>
         {%endfor%}
       </section>
-=======
     <form method="POST" action="{{ url_for('registro')}}" style="text-align: center">
         <!--onsubmit="return validar_usuario();" -->
         <label for="label">Primer nombre:</label><br />
@@ -108,7 +103,6 @@
             <div class="flash"><strong>{{message}}</strong></div>
             {%endfor%}
         </section>
->>>>>>> 6fcd0a0307e17d564de840559e5a98577edd17fc
     </form>
   </body>
 </html>
