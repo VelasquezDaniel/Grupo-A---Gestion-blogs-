@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <link rel="shortcut icon" type="image/png" href="https://img.icons8.com/clouds/100/000000/flicker-free.png"/>
+    <link rel="shortcut icon" type="image/png" href="https://img.icons8.com/clouds/100/000000/flicker-free.png" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboardStyle.css') }}" />
 </head>
 
@@ -73,10 +73,35 @@
         </div>
       </div>
     </section>
-    <footer>
-      <div class="bottom-footer">
+
+  {% for blog_ in blog %}
+  <section>
+        
+        <h3 class="post-title">{{ blog_[1] }}</h3>
+
+        <p class="date">Publicado en : {{ blog_[8] }}</p>
+        <p>{{ blog_[2] }}</p>
+        <a href ="{{url_for('verBlog')}}?blog_ID={{blog_[0]}}">ver</a>
+
+
+                <!--<form class="ver-botton" action="{{url_for('verBlog')}}" method="post">
+          <botton value="{{blog[0]}}" name="blog_ID">Ver Blog</botton>
+        </form>-->
+
+</section>
+
+{% endfor %}
+
+
+
+<footer>
+    <div class="bottom-footer">
         <p></p>
-      </div>
-    </footer>
-  </body>
+    </div>
+</footer>
+</body>
+
+
+
+
 </html>

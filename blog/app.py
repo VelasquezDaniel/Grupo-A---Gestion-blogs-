@@ -214,17 +214,14 @@ def newPassword():
     except:
         #flash( 'Se ha producido un error, intente de nuevo en unos minutos' )
         return render_template( 'changePassword.html' )
-<<<<<<< HEAD
 
 #Editar Blog - Necesito seleccionar la informacion del blog y enviarla a /edit una vez allí la puedo modificar 
 #Duda 1: como tomo la informacion de un blog? 
 #   yo quier: que al darle click ((((DUDA: que me envie a /edit con la informacion del blog))))
 #   Verificar si el blog fue creado por mi - me lleve de una a la ventana de editar 
 #   si el blog no es mio entonces llevarme a un visualizador de blogs y poder comentarlo. 
-=======
 #########################
 
->>>>>>> 0503eace9bcb5ef1fdec02b0788bb9e9102d1dd2
 
 
 
@@ -232,6 +229,17 @@ def newPassword():
 @app.route('/dashboard')
 @login_required
 def dashboard():
+        db = get_db()
+        blogs = db.execute('SELECT * FROM blogs').fetchall()
+        return render_template('dashboard.html', blog = blogs)
+
+
+@app.route('/verblog', methods=['GET'])
+@login_required
+def verBlog():
+    blog_ID = request.args.get('blog_id')
+    db = get_db()
+    blogs = db.execute('SELECT * FROM blogs WHERE privado= False ')
     return render_template('dashboard.html')
 
 @app.route('/create')
