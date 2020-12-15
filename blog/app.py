@@ -58,6 +58,7 @@ def validacion():
                     session.clear()
                     session['usuario_ID'] = user[0]
                     session['username'] = user[1]
+                    session['contraseña'] = user[2]
                     session['correo'] = user[3]
                     session['nombre'] = user[4]
                     session['apellido'] = user[5]
@@ -178,39 +179,41 @@ def sendEmail():
 
 @app.route('/cambiarClave')
 @login_required
-def changePassword():
+def cambiarClave():
     return render_template('changePassword.html')
 
-@app.route('/nuevaClave', methods=('GET', 'POST') )
+@app.route('/newPassword', methods=('GET', 'POST') )
 @login_required
 def newPassword():
-    #try:
+    try:
         if request.method == 'POST':
             oldPass = request.form['oldPass']
             newPass = request.form['newPass']
             confirmPass = request.form['confirmPass']
             db = get_db()
-            if db.execute( 'SELECT contraseña FROM usuarios WHERE usuario = ? AND contraseña = ?',(user[1], oldPass)).fetchone() is not None :
+            if check_password_hash(session['contraseña'],oldPass) :
                 if newPass == confirmPass:
                     if not utils.isPasswordValid( newPass ):
                         error = 'La contraseña debe contener al menos una minúscula, una mayúscula, un número y 8 caracteres'
                         flash( error )
                         return render_template( 'cambiarClave.html' )
                     hashPassword = generate_password_hash(confirmPass)
-                    db.execute( 'UPDATE usuarios SET contraseña = ? WHERE correo = ?',(hashPassword, session[2]))
+                    db.execute( 'UPDATE usuarios SET contraseña = ? WHERE correo = ?',(hashPassword, session['correo']))
                     db.commit()
-                    db.close_db
                     flash("Contraseña cambiada con exito")
-                    session.clear()
-                    return redirect('login.html')
+                    #session.clear()
+                    #return redirect('login.html')
                 else:
                     flash('Las contraseñas no concuerdan')
                     return render_template('changePassword.html')
-            flash('Las contraseña actual no concuerdan')
-            return render_template('changePassword.html')
-    #except:
-    #    flash( 'Se ha producido un error, intente de nuevo en unos minutos' )
-    #    return render_template( 'changePassword.html' )
+            else:
+                flash('Las contraseña actual no concuerdan')
+                return render_template('changePassword.html')
+            db.close_db()
+            return render_template( 'changePassword.html' )
+    except:
+        #flash( 'Se ha producido un error, intente de nuevo en unos minutos' )
+        return render_template( 'changePassword.html' )
    #########################
 
 
