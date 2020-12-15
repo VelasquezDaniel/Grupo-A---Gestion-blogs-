@@ -11,6 +11,8 @@ from flask import Flask, render_template, flash, request, redirect, url_for, jso
 import utils
 from db import get_db, close_db
 import os
+import secrets
+import string
 from sqlite3 import Error
 import yagmail as yagmail
 
@@ -144,31 +146,30 @@ def registro():
     except:
         return render_template( 'createUser.html' )
 
+
 @app.route('/recuperarCuenta')
 def forgetPassword():
-    return render_template('forgetPassword')
+    return render_template('forgetPassword.html')
 
 
 
-@app.route('/sendEmail', methods=('GET', 'POST'))
+@app.route('/sendEmail', methods=('POST'))
 def sendEmail():
+    username = request.form['user']
     email = request.form['email']
     db = get_db() #Conectarse a la base de datos
 
-    if not utils.isEmailValid( email ):
-                error = 'Correo invalido'
-                flash( error )
-                return render_template( 'register.html' )
-
-
+    alphabet = string.ascii_letters + string.digits
+    password = ''.join(secrets.choice(alphabet) for i in range(8))
     #Preguntar si el correo no ha sido registrado anteriormente
-    if db.execute( 'SELECT id FROM usuarios WHERE correo = ?', (email,) ).fetchone() is not None:
-        yag = yagmail.SMTP('micuenta@gmail.com', 'clave') #modificar con tu informacion personal
+    if db.execute( 'SELECT usuario_ID FROM usuarios WHERE usuario = ? AND correo = ?',(username, email)).fetchone() is not None:
+        yag = yagmail.SMTP('misiontic2020@gmail.com', 'Uninorte2020!') #modificar con tu informacion personal
         yag.send(to=email, subject='Recupera tu cuenta',
-        contents='Bienvenido, usa este link para entrar a tu cuenta ')
-    return render_template('forgetPassword')
-
-
+        contents='¡Hola!, usa esta clave temporal para entrar a tu cuenta. \n\nClave temporal: '+password+'\n\nGracias por utilizar nuestros servicios!\nAtentamente,\nEquipo Grupo A Blogs')
+        db.execute('UPDATE usuarios SET contraseña = ? WHERE correo = ?' ,(password, email))
+        db.commit()
+    close_db()
+    return render_template('login.html')
 
 
 @app.route('/cambiarClave')
