@@ -58,10 +58,12 @@ def validacion():
                     session.clear()
                     session['usuario_ID'] = user[0]
                     session['username'] = user[1]
+                    session['contraseña'] = user[2]
                     session['correo'] = user[3]
                     session['nombre'] = user[4]
                     session['apellido'] = user[5]
                     return redirect(url_for('dashboard'))
+            error = 'Usuario o contraseña inválidos'
             flash( error )
             
         return render_template( 'login.html' )    
@@ -85,7 +87,6 @@ def userInf():
 
 @app.route('/CrearCuenta' , methods=('GET', 'POST'))
 def registro():
-    #return render_template('createUser.html')
     try:
         if request.method == 'POST':
             name = request.form['name']
@@ -178,10 +179,47 @@ def sendEmail():
 
 @app.route('/cambiarClave')
 @login_required
-def changePassword():
+def cambiarClave():
     return render_template('changePassword.html')
 
-    
+@app.route('/newPassword', methods=('GET', 'POST') )
+@login_required
+def newPassword():
+    try:
+        if request.method == 'POST':
+            oldPass = request.form['oldPass']
+            newPass = request.form['newPass']
+            confirmPass = request.form['confirmPass']
+            db = get_db()
+            if check_password_hash(session['contraseña'],oldPass) :
+                if newPass == confirmPass:
+                    if not utils.isPasswordValid( newPass ):
+                        error = 'La contraseña debe contener al menos una minúscula, una mayúscula, un número y 8 caracteres'
+                        flash( error )
+                        return render_template( 'cambiarClave.html' )
+                    hashPassword = generate_password_hash(confirmPass)
+                    db.execute( 'UPDATE usuarios SET contraseña = ? WHERE correo = ?',(hashPassword, session['correo']))
+                    db.commit()
+                    flash("Contraseña cambiada con exito")
+                    #session.clear()
+                    #return redirect('login.html')
+                else:
+                    flash('Las contraseñas no concuerdan')
+                    return render_template('changePassword.html')
+            else:
+                flash('Las contraseña actual no concuerdan')
+                return render_template('changePassword.html')
+            db.close_db()
+            return render_template( 'changePassword.html' )
+    except:
+        #flash( 'Se ha producido un error, intente de nuevo en unos minutos' )
+        return render_template( 'changePassword.html' )
+   #########################
+
+
+
+
+  
 @app.route('/dashboard')
 @login_required
 def dashboard():
@@ -189,33 +227,33 @@ def dashboard():
 
 @app.route('/create')
 @login_required
-def createBlog():
+def create():
     return render_template( 'createBlog.html' )
 
-@app.route('/edit', methods=['POST'])	
+@app.route('/edit')	
 @login_required	
 def editBlog():	
     return render_template('editBlog.html')	
 
 #@app.route('/resultados', methods=['GET'])
 
-
-@app.route('/createBlog')
+@app.route('/createBlog', methods=('GET', 'POST'))
 @login_required
-def crearBlog():
+def createBlog():
     try:
         if request.method == 'POST':
             titulo = request.form['titulo']
             cuerpo = request.form['cuerpo']
             imagen = "No hay" #DEBEMOS MODIFICAR ESTO
-            etiquetas = "Modificar etiquetas"
+            etiqueta = request.form['etiqueta']
+            etiqueta = str.lower(etiqueta)
             usuarioCreador = session['usuario_ID']
             likes = 0
-            fechaCreacion = datetime.now()
+            fechaCreacion = datetime.date.today()
             error = None
             db = get_db() #Conectarse a la base de datos
 
-            if request.form['privacidad'] == True:
+            if request.form['privacidad'] == "privado":
                 privado = True
             else:
                 privado = False 
@@ -234,17 +272,28 @@ def crearBlog():
                 error = "debe seleccionar la privacidad del blog"
                 flash( error )
                 return render_template( 'create.html' )
+            
+            tag = db.execute('SELECT etiqueta_ID FROM etiquetas WHERE nombre = ?',(etiqueta,)).fetchone()
 
+            if tag is None:
+                db.execute('INSERT INTO etiquetas (nombre) VALUES (?)',(etiqueta,))
+                tag = db.execute('SELECT etiqueta_ID FROM etiquetas WHERE nombre = ?',(etiqueta,)).fetchone()
+                etiqueta = tag[0]
+            else:
+                etiqueta = tag[0]
+            
             db.execute(
-                'INSERT INTO blogs (titulo, imagen, cuerpo, privado, etiquetas, usuarioCreador, likes, fechaCreacion) VALUES (?,?,?,?,?,?,?,?)',
-                (titulo, imagen, cuerpo, privado, etiquetas, usuarioCreador, likes, fechaCreacion)
+                'INSERT INTO blogs (titulo, imagen, cuerpo, privado, etiqueta_ID, usuario_ID, likes, fecha) VALUES (?,?,?,?,?,?,?,?)',
+                (titulo, imagen, cuerpo, privado, etiqueta, usuarioCreador, likes, fechaCreacion)
             )
             db.commit()
             close_db()
             return render_template( 'dashboard.html', blog_created="El blog ha sido creado con exito" )
         return render_template( 'createBlog.html' )
     except:
-        return render_template( 'createBlog.html' )       
+        return render_template( 'createBlog.html' )   
+
+@app.route('/search')            
 def search():
     return render_template('search.html')
 
