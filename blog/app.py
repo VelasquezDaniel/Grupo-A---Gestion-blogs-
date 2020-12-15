@@ -5,6 +5,8 @@ resultado = {}
 import functools
 import datetime
 
+from werkzeug.security import generate_password_hash, check_password_hash
+
 from flask import Flask, render_template, flash, request, redirect, url_for, jsonify, session, send_file, current_app, g, make_response
 import utils
 from db import get_db, close_db
@@ -45,18 +47,19 @@ def validacion():
                 flash( error )
                 return render_template( 'login.html' )
 
-            user = db.execute('SELECT * FROM usuarios WHERE usuario = ? AND contraseña = ?',(username, password)).fetchone()
+            user = db.execute('SELECT * FROM usuarios WHERE usuario = ?',(username)).fetchone()
 
             if user is None:
                 error = 'Usuario o contraseña inválidos'
             else:
-                session.clear()
-                session['usuario_ID'] = user[0]
-                session['username'] = user[1]
-                session['correo'] = user[3]
-                session['nombre'] = user[4]
-                session['apellido'] = user[5]
-                return redirect(url_for('dashboard'))
+                if check_password_hash(user['contraseña'],password):
+                    session.clear()
+                    session['usuario_ID'] = user[0]
+                    session['username'] = user[1]
+                    session['correo'] = user[3]
+                    session['nombre'] = user[4]
+                    session['apellido'] = user[5]
+                    return redirect(url_for('dashboard'))
             flash( error )
             
         return render_template( 'login.html' )    
@@ -125,16 +128,17 @@ def registro():
                 flash( error )
                 return render_template( 'createUser.html' )    
 
+            hashPassword = generate_password_hash(password)
             db.execute(
                 'INSERT INTO usuarios (usuario, contraseña, correo, nombre, apellido, activo) VALUES (?,?,?,?,?,?)',
-                (username, password, email, name, lastname, active)
+                (username, hashPassword, email, name, lastname, active)
             )
             db.commit()
             close_db()
             # yag = yagmail.SMTP('micuenta@gmail.com', 'clave') #modificar con tu informacion personal
             # yag.send(to=email, subject='Activa tu cuenta',
             #        contents='Bienvenido, usa este link para activar tu cuenta ')
-            #flash( 'Revisa tu correo para activar tu cuenta' )
+            flash( 'El usuario ha sido creado con exito' )
             return render_template( 'login.html', user_created="El usuario ha sido creado con exito" )
         return render_template( 'createUser.html' )
     except:
@@ -188,7 +192,9 @@ def createBlog():
 def editBlog():	
     return render_template('editBlog.html')	
 
-@app.route('/resultados', methods=['GET'])
+#@app.route('/resultados', methods=['GET'])
+
+
 @app.route('/createBlog')
 @login_required
 def crearBlog():
