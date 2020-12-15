@@ -181,7 +181,7 @@ def sendEmail():
 def changePassword():
     return render_template('changePassword.html')
 
-@app.route('/nuevaClave')
+@app.route('/nuevaClave', methods=('GET', 'POST') )
 @login_required
 def newPassword():
     #try:
@@ -224,33 +224,33 @@ def dashboard():
 
 @app.route('/create')
 @login_required
-def createBlog():
+def create():
     return render_template( 'createBlog.html' )
 
-@app.route('/edit', methods=['POST'])	
+@app.route('/edit')	
 @login_required	
 def editBlog():	
     return render_template('editBlog.html')	
 
 #@app.route('/resultados', methods=['GET'])
 
-
-@app.route('/createBlog')
+@app.route('/createBlog', methods=('GET', 'POST'))
 @login_required
-def crearBlog():
+def createBlog():
     try:
         if request.method == 'POST':
             titulo = request.form['titulo']
             cuerpo = request.form['cuerpo']
             imagen = "No hay" #DEBEMOS MODIFICAR ESTO
-            etiquetas = "Modificar etiquetas"
+            etiqueta = request.form['etiqueta']
+            etiqueta = str.lower(etiqueta)
             usuarioCreador = session['usuario_ID']
             likes = 0
-            fechaCreacion = datetime.now()
+            fechaCreacion = datetime.date.today()
             error = None
             db = get_db() #Conectarse a la base de datos
 
-            if request.form['privacidad'] == True:
+            if request.form['privacidad'] == "privado":
                 privado = True
             else:
                 privado = False 
@@ -269,17 +269,28 @@ def crearBlog():
                 error = "debe seleccionar la privacidad del blog"
                 flash( error )
                 return render_template( 'create.html' )
+            
+            tag = db.execute('SELECT etiqueta_ID FROM etiquetas WHERE nombre = ?',(etiqueta,)).fetchone()
 
+            if tag is None:
+                db.execute('INSERT INTO etiquetas (nombre) VALUES (?)',(etiqueta,))
+                tag = db.execute('SELECT etiqueta_ID FROM etiquetas WHERE nombre = ?',(etiqueta,)).fetchone()
+                etiqueta = tag[0]
+            else:
+                etiqueta = tag[0]
+            
             db.execute(
-                'INSERT INTO blogs (titulo, imagen, cuerpo, privado, etiquetas, usuarioCreador, likes, fechaCreacion) VALUES (?,?,?,?,?,?,?,?)',
-                (titulo, imagen, cuerpo, privado, etiquetas, usuarioCreador, likes, fechaCreacion)
+                'INSERT INTO blogs (titulo, imagen, cuerpo, privado, etiqueta_ID, usuario_ID, likes, fecha) VALUES (?,?,?,?,?,?,?,?)',
+                (titulo, imagen, cuerpo, privado, etiqueta, usuarioCreador, likes, fechaCreacion)
             )
             db.commit()
             close_db()
             return render_template( 'dashboard.html', blog_created="El blog ha sido creado con exito" )
         return render_template( 'createBlog.html' )
     except:
-        return render_template( 'createBlog.html' )       
+        return render_template( 'createBlog.html' )   
+
+@app.route('/search')            
 def search():
     return render_template('search.html')
 
