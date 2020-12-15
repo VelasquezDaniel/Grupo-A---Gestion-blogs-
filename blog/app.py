@@ -47,12 +47,12 @@ def validacion():
                 flash( error )
                 return render_template( 'login.html' )
 
-            user = db.execute('SELECT * FROM usuarios WHERE usuario = ?',(username)).fetchone()
+            user = db.execute('SELECT * FROM usuarios WHERE usuario = ?',(username,)).fetchone()
 
             if user is None:
                 error = 'Usuario o contraseña inválidos'
             else:
-                if check_password_hash(user['contraseña'],password):
+                if check_password_hash(user[2],password):
                     session.clear()
                     session['usuario_ID'] = user[0]
                     session['username'] = user[1]
