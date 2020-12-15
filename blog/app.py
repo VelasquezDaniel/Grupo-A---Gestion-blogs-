@@ -214,12 +214,12 @@ def newPassword():
     except:
         #flash( 'Se ha producido un error, intente de nuevo en unos minutos' )
         return render_template( 'changePassword.html' )
-   #########################
+#########################
 
 
 
 
-  
+
 @app.route('/dashboard')
 @login_required
 def dashboard():
