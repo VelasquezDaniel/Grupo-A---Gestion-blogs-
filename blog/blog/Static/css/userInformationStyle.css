@@ -1,0 +1,37 @@
+.box {
+    display: inline-block;
+}
+
+#sesion {
+    margin-left: 40%;
+}
+
+input[type=text] {
+    width: 55%;
+    padding: 0.5%;
+}
+
+#menu {
+    width: 40%;
+    position: relative;
+    transform: translate(0, -60%);
+}
+
+#recuadro {
+    border: black 1px solid;
+    position: relative;
+    left: 5%;
+    right: 25%;
+}
+
+#cambiar {
+    margin-left: 50%;
+}
+
+#tabla {
+    margin-left: 8%;
+}
+
+#cambiar {
+    margin-left: 50%;
+}
