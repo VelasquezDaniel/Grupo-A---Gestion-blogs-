@@ -260,9 +260,7 @@ def editBlog():
     blog_ID = request.args.get('blog_ID')
     db = get_db()
     blog = db.execute('SELECT * FROM blogs WHERE blog_ID=?',(blog_ID,)).fetchone()
-    return render_template('createBlogEdit.html', blog = blog)
-
-    return render_template('editBlog.html')	
+    return render_template('editBlog.html', blog = blog)
 
 #@app.route('/resultados', methods=['GET'])
 
