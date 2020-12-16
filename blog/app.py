@@ -262,6 +262,26 @@ def editBlog():
     blog = db.execute('SELECT * FROM blogs WHERE blog_ID=?',(blog_ID,)).fetchone()
     return render_template('editBlog.html', blog = blog)
 
+@app.route('/actionedit', methods=('GET', 'POST'))	
+@login_required	
+def actionedit():	
+    if request.method == 'POST':
+        titulo = request.form['titulo']
+        cuerpo = request.form['cuerpo']
+        imagen = "No hay" #DEBEMOS MODIFICAR ESTO
+        etiqueta = request.form['etiqueta']
+        etiqueta = str.lower(etiqueta)
+        usuarioCreador = session['usuario_ID']
+        likes = request.form['likes']
+        fechaCreacion = datetime.date.today()
+        error = None
+        db = get_db() #Conectarse a la base de datos
+
+    blog_ID = request.args.get('blog_ID')
+    db = get_db()
+    blog = db.execute('SELECT * FROM blogs WHERE blog_ID=?',(blog_ID,)).fetchone()
+    return render_template('editBlog.html', blog = blog)
+
 #@app.route('/resultados', methods=['GET'])
 
 @app.route('/createBlog', methods=('GET', 'POST'))
