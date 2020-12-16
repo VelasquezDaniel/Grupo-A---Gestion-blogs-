@@ -103,13 +103,13 @@
             <h2 class="post-title">{{ blog_[1] }}</h2>
             <!--<h3 class="post-subtitle">{{ blog_[3] }}</h3>-->
           </a>
-          <p class="post-meta">Creado por:
+          <p class="post-meta">Creado por 
         {%for author in autor %}
             <em>{% if blog_[6] == author[0] %}
               {{author[1]}} </em>
               {% endif %}
         {% endfor %}
-            el día: {{ blog_[8] }}</p>
+            el día {{ blog_[8] }}</p>
         </div>
         <hr>
 {% endfor %}

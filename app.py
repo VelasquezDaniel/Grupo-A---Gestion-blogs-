@@ -251,7 +251,6 @@ def verBlog():
     autores = db.execute('SELECT usuario FROM usuarios WHERE usuario_ID=?',(blog[6],)).fetchone()
     return render_template('verBlog.html', blog = blog, autor = autores)
 
-
 @app.route('/create')
 @login_required
 def create():
