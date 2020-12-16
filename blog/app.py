@@ -230,17 +230,24 @@ def newPassword():
 @login_required
 def dashboard():
         db = get_db()
-        blogs = db.execute('SELECT * FROM blogs').fetchall()
+        blogs = db.execute('SELECT * FROM blogs WHERE privado= 0').fetchall()
         return render_template('dashboard.html', blog = blogs)
+
+@app.route('/myBlogs')
+@login_required
+def myBlogs():
+        db = get_db()
+        blogs = db.execute('SELECT * FROM blogs WHERE usuario_ID= ?',(session["usuario_ID"],)).fetchall()
+        return render_template('myBlogs.html', blog = blogs)
 
 
 @app.route('/verblog', methods=['GET'])
 @login_required
 def verBlog():
-    blog_ID = request.args.get('blog_id')
+    blog_ID = request.args.get('blog_ID')
     db = get_db()
-    blogs = db.execute('SELECT * FROM blogs WHERE privado= False ')
-    return render_template('dashboard.html')
+    blog = db.execute('SELECT * FROM blogs WHERE blog_ID=?',(blog_ID,)).fetchone()
+    return render_template('verBlog.html', blog = blog)
 
 @app.route('/create')
 @login_required
@@ -250,6 +257,11 @@ def create():
 @app.route('/edit')	
 @login_required	
 def editBlog():	
+    blog_ID = request.args.get('blog_ID')
+    db = get_db()
+    blog = db.execute('SELECT * FROM blogs WHERE blog_ID=?',(blog_ID,)).fetchone()
+    return render_template('createBlogEdit.html', blog = blog)
+
     return render_template('editBlog.html')	
 
 #@app.route('/resultados', methods=['GET'])

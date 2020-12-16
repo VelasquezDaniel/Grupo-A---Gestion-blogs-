@@ -17,7 +17,7 @@
         <nav class="menu">
             <a href="/create">crear</a>
             <a href=" ">Explorar</a>
-            <a href="/myBlogs">mis blogs</a>
+            <a href=" ">mis blogs</a>
         </nav>
     </div>
     <div class="perfil">
@@ -73,16 +73,15 @@
         </div>
       </div>
     </section>
-
-  {% for blog_ in blog %}
+  
+ 
   <section style="text-align: center">
         
-        <h3 class="post-title">{{ blog_[1] }}</h3>
+        <h3 readonly="true" class="post-title">{{ blog[1] }}</h3>
 
-        <p readonly="true" class="date">Publicado en : {{ blog_[8] }}</p>
-        <p readonly="true" class="date">Creador por : {{ blog_[8] }}</p>
-        <textarea style="border: none" readonly="true" cols="80" rows="10" max-length="50">{{ blog_[3] }}</textarea><br>
-        <a href ="{{url_for('verBlog')}}?blog_ID={{blog_[0]}}">ver blog completo</a><br><br>
+        <p   readonly="true" class="date">Publicado en : {{ blog[8] }}</p>
+        <textarea style="border: none" readonly="true" cols="80" rows="10" >{{ blog[3] }}</textarea><br><br>
+        <a href ="{{url_for('dashboard')}}">volver atras</a>
 
 
                 <!--<form class="ver-botton" action="{{url_for('verBlog')}}" method="post">
@@ -90,8 +89,6 @@
         </form>-->
 
 </section>
-
-{% endfor %}
 
 
 
