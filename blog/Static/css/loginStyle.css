@@ -108,18 +108,6 @@ body {
   text-align: center;
 }
 
-.botonIn {
-  margin: 1em;
-  min-width: 230px;
-  padding: 0.3em;
-  background: linear-gradient(to right, #56ccf2, #2f80ed);
-  border: 0;
-  cursor: pointer;
-  border-radius: 20px;
-}
-
-.botonIn span {
-  color: #fff;
-  padding: 1.3em;
-  border-radius: 17px;
+.flash {
+  color: red;
 }
